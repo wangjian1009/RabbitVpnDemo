@@ -27,23 +27,19 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 	override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         DDLog.removeAllLoggers()
         DDLog.add(DDASLLogger.sharedInstance, with: DDLogLevel.info)
-        ObserverFactory.currentFactory = DebugObserverFactory()
-        NSLog("-------------")
+        DDLogError("-------------")
         
         guard let conf = (protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration else{
-            NSLog("[ERROR] No ProtocolConfiguration Found")
+            DDLogError("[ERROR] No ProtocolConfiguration Found")
             exit(EXIT_FAILURE)
         }
         
         
         let ss_adder = conf["ss_address"] as! String
-        NSLog(ss_adder)
-        
         let ss_port = conf["ss_port"] as! Int
         let method = conf["ss_method"] as! String
-        NSLog(method)
-
         let password = conf["ss_password"] as!String
+        DDLogInfo("address=\(ss_adder), port=\(ss_port), method=\(method), password=\(password)")
                 
         // Proxy Adapter
         
@@ -70,7 +66,13 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
         
         
-        let ssAdapterFactory = ShadowsocksAdapterFactory(serverHost: ss_adder, serverPort: ss_port, protocolObfuscaterFactory:obfuscater, cryptorFactory: ShadowsocksAdapter.CryptoStreamProcessor.Factory(password: password, algorithm: algorithm), streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.OriginStreamObfuscater.Factory())
+        let ssAdapterFactory =
+          ShadowsocksAdapterFactory(
+            serverHost: ss_adder,
+            serverPort: ss_port,
+            protocolObfuscaterFactory:obfuscater,
+            cryptorFactory: ShadowsocksAdapter.CryptoStreamProcessor.Factory(password: password, algorithm: algorithm),
+            streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.OriginStreamObfuscater.Factory())
         
         let directAdapterFactory = DirectAdapterFactory()
         
@@ -156,7 +158,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 
             ]
         }
-        networkSettings.iPv4Settings = ipv4Settings
+        networkSettings.ipv4Settings = ipv4Settings
         
         let proxySettings = NEProxySettings()
         proxySettings.httpEnabled = true
@@ -247,18 +249,21 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 	}
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        DDLogInfo("observeValue: keyPath=\(keyPath)")
+
         if keyPath == "defaultPath" {
-            if self.defaultPath?.status == .satisfied && self.defaultPath != lastPath{
-                if(lastPath == nil){
+            if self.defaultPath?.status == .satisfied && self.defaultPath != lastPath {
+                if(lastPath == nil) {
                     lastPath = self.defaultPath
-                }else{
-                    NSLog("received network change notifcation")
+                }
+                else {
                     let delayTime = DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                     DispatchQueue.main.asyncAfter(deadline: delayTime) {
                         self.startTunnel(options: nil){_ in}
                     }
                 }
-            }else{
+            }
+            else {
                 lastPath = defaultPath
             }
         }

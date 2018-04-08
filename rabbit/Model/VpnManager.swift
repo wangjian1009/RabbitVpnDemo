@@ -158,15 +158,15 @@ extension VpnManager{
 }
 
 // Generate and Load ConfigFile
-extension VpnManager{
-    fileprivate func getRuleConf() -> String{
+extension VpnManager {
+    fileprivate func getRuleConf() -> String {
         let Path = Bundle.main.path(forResource: "NEKitRule", ofType: "conf")
         let Data = try? Foundation.Data(contentsOf: URL(fileURLWithPath: Path!))
         let str = String(data: Data!, encoding: String.Encoding.utf8)!
         return str
     }
     
-    fileprivate func setRulerConfig(_ manager:NETunnelProviderManager){
+    fileprivate func setRulerConfig(_ manager:NETunnelProviderManager) {
         var conf = [String:AnyObject]()
         conf["ss_address"] = "YOUR SS URL" as AnyObject?
         conf["ss_port"] = 1025 as AnyObject?
