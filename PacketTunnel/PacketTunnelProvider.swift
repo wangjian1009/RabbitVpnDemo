@@ -1,18 +1,9 @@
-//
-//  PacketTunnelProvider.swift
-//  PacketTunnel
-//
-//  Created by 称一称 on 2016/11/18.
-//  Copyright © 2016年 yicheng. All rights reserved.
-//
-
 import NetworkExtension
 import NEKit
 import CocoaLumberjackSwift
 import Yaml
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
-    
     var interface: TUNInterface!
     var enablePacketProcessing = false
     
@@ -67,7 +58,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         
         
         let ssAdapterFactory =
-          ShadowsocksAdapterFactory(
+          KcpShadowsocksAdapterFactory(
             serverHost: ss_adder,
             serverPort: ss_port,
             protocolObfuscaterFactory:obfuscater,
@@ -188,7 +179,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             
             
             if !self.started{
-                self.proxyServer = GCDHTTPProxyServer(address: IPAddress(fromString: "127.0.0.1"), port: NEKit.Port(port: UInt16(self.proxyPort)))
+                self.proxyServer = KcpShadowsocksProxyServer(address: IPAddress(fromString: "127.0.0.1"), port: NEKit.Port(port: UInt16(self.proxyPort)))
                 try! self.proxyServer.start()
                 self.addObserver(self, forKeyPath: "defaultPath", options: .initial, context: nil)
             }else{
@@ -244,7 +235,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             RawSocketFactory.TunnelProvider = nil
         }
         completionHandler()
-        
+
         exit(EXIT_SUCCESS)
 	}
     
@@ -269,5 +260,4 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
         
     }
-
 }
