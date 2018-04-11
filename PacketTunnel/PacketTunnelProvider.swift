@@ -240,7 +240,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 	}
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        DDLogInfo("observeValue: keyPath=\(keyPath)")
+        DDLogInfo("observeValue: keyPath=\(keyPath ?? "???")")
 
         if keyPath == "defaultPath" {
             if self.defaultPath?.status == .satisfied && self.defaultPath != lastPath {

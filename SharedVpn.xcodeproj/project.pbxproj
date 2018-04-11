@@ -30,6 +30,8 @@
 		353C0FE11DDF393F00A46EBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 353C0FDF1DDF393F00A46EBD /* Main.storyboard */; };
 		353C0FE31DDF393F00A46EBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353C0FE21DDF393F00A46EBD /* Assets.xcassets */; };
 		353C0FE61DDF393F00A46EBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 353C0FE41DDF393F00A46EBD /* LaunchScreen.storyboard */; };
+		C95BBFE7207E11BD00F30B49 /* ikcp.c in Sources */ = {isa = PBXBuildFile; fileRef = C95BBFE6207E11BD00F30B49 /* ikcp.c */; };
+		C95BBFEA207E120600F30B49 /* libkcp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C95BBFDC207E11A500F30B49 /* libkcp.a */; };
 		C98B25E9207E07EE0065FE64 /* KcpShadowsocksProxyServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B25E7207E07ED0065FE64 /* KcpShadowsocksProxyServer.swift */; };
 		C98B25EA207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B25E8207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift */; };
 		C98B25EC207E07F30065FE64 /* KcpSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B25EB207E07F20065FE64 /* KcpSocket.swift */; };
@@ -42,6 +44,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 09549ABE1DDF3B49000F198C;
 			remoteInfo = PacketTunnel;
+		};
+		C95BBFE8207E120000F30B49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 353C0FD01DDF393F00A46EBD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C95BBFDB207E11A500F30B49;
+			remoteInfo = kcp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -61,6 +70,15 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C95BBFDA207E11A500F30B49 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
 			);
@@ -97,6 +115,10 @@
 		353C0FE21DDF393F00A46EBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		353C0FE51DDF393F00A46EBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		353C0FE71DDF393F00A46EBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C95BBFDC207E11A500F30B49 /* libkcp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libkcp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C95BBFE5207E11BD00F30B49 /* ikcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ikcp.h; sourceTree = "<group>"; };
+		C95BBFE6207E11BD00F30B49 /* ikcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ikcp.c; sourceTree = "<group>"; };
+		C95BBFEB207E149B00F30B49 /* PacketTunnel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PacketTunnel-Bridging-Header.h"; sourceTree = "<group>"; };
 		C98B25E7207E07ED0065FE64 /* KcpShadowsocksProxyServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpShadowsocksProxyServer.swift; sourceTree = "<group>"; };
 		C98B25E8207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpShadowsocksAdapterFactory.swift; sourceTree = "<group>"; };
 		C98B25EB207E07F20065FE64 /* KcpSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpSocket.swift; sourceTree = "<group>"; };
@@ -107,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C95BBFEA207E120600F30B49 /* libkcp.a in Frameworks */,
 				09E3FB5B1DF859E0001DE158 /* Resolver.framework in Frameworks */,
 				09549ADC1DDF406B000F198C /* CocoaAsyncSocket.framework in Frameworks */,
 				09549ADD1DDF406B000F198C /* CocoaLumberjack.framework in Frameworks */,
@@ -126,6 +149,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				09549AD01DDF3C2F000F198C /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C95BBFD9207E11A500F30B49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +214,7 @@
 				C98B25E7207E07ED0065FE64 /* KcpShadowsocksProxyServer.swift */,
 				09549AC31DDF3B4A000F198C /* PacketTunnelProvider.swift */,
 				09549AC11DDF3B4A000F198C /* Supporting Files */,
+				C95BBFEB207E149B00F30B49 /* PacketTunnel-Bridging-Header.h */,
 			);
 			path = PacketTunnel;
 			sourceTree = "<group>";
@@ -229,6 +260,7 @@
 			children = (
 				353C0FDA1DDF393F00A46EBD /* SharedVpn */,
 				09549AC01DDF3B4A000F198C /* PacketTunnel */,
+				C95BBFDD207E11A600F30B49 /* kcp */,
 				353C0FD91DDF393F00A46EBD /* Products */,
 				09549ACD1DDF3C0E000F198C /* Frameworks */,
 			);
@@ -239,6 +271,7 @@
 			children = (
 				353C0FD81DDF393F00A46EBD /* SharedVpn.app */,
 				09549ABF1DDF3B49000F198C /* PacketTunnel.appex */,
+				C95BBFDC207E11A500F30B49 /* libkcp.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -257,6 +290,15 @@
 			path = SharedVpn;
 			sourceTree = "<group>";
 		};
+		C95BBFDD207E11A600F30B49 /* kcp */ = {
+			isa = PBXGroup;
+			children = (
+				C95BBFE6207E11BD00F30B49 /* ikcp.c */,
+				C95BBFE5207E11BD00F30B49 /* ikcp.h */,
+			);
+			path = kcp;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -273,6 +315,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C95BBFE9207E120000F30B49 /* PBXTargetDependency */,
 			);
 			name = PacketTunnel;
 			productName = PacketTunnel;
@@ -299,6 +342,23 @@
 			productReference = 353C0FD81DDF393F00A46EBD /* SharedVpn.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C95BBFDB207E11A500F30B49 /* kcp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C95BBFE4207E11A600F30B49 /* Build configuration list for PBXNativeTarget "kcp" */;
+			buildPhases = (
+				C95BBFD8207E11A500F30B49 /* Sources */,
+				C95BBFD9207E11A500F30B49 /* Frameworks */,
+				C95BBFDA207E11A500F30B49 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = kcp;
+			productName = kcp;
+			productReference = C95BBFDC207E11A500F30B49 /* libkcp.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -306,7 +366,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = yicheng;
 				TargetAttributes = {
 					09549ABE1DDF3B49000F198C = {
@@ -331,6 +391,10 @@
 							};
 						};
 					};
+					C95BBFDB207E11A500F30B49 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 353C0FD31DDF393F00A46EBD /* Build configuration list for PBXProject "SharedVpn" */;
@@ -348,6 +412,7 @@
 			targets = (
 				353C0FD71DDF393F00A46EBD /* SharedVpn */,
 				09549ABE1DDF3B49000F198C /* PacketTunnel */,
+				C95BBFDB207E11A500F30B49 /* kcp */,
 			);
 		};
 /* End PBXProject section */
@@ -436,6 +501,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C95BBFD8207E11A500F30B49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C95BBFE7207E11BD00F30B49 /* ikcp.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -443,6 +516,11 @@
 			isa = PBXTargetDependency;
 			target = 09549ABE1DDF3B49000F198C /* PacketTunnel */;
 			targetProxy = 09549AC61DDF3B4A000F198C /* PBXContainerItemProxy */;
+		};
+		C95BBFE9207E120000F30B49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C95BBFDB207E11A500F30B49 /* kcp */;
+			targetProxy = C95BBFE8207E120000F30B49 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -469,6 +547,7 @@
 		09549ACA1DDF3B4A000F198C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -479,6 +558,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				HEADER_SEARCH_PATHS = kcp;
 				INFOPLIST_FILE = PacketTunnel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -487,6 +567,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = ShadowShareTunnel_dev;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "PacketTunnel/PacketTunnel-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -494,6 +576,7 @@
 		09549ACB1DDF3B4A000F198C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -504,6 +587,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				HEADER_SEARCH_PATHS = kcp;
 				INFOPLIST_FILE = PacketTunnel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -511,6 +595,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ShadowShareTunnel_dis;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PacketTunnel/PacketTunnel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 			};
@@ -525,14 +610,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -573,14 +666,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -642,6 +743,60 @@
 			};
 			name = Release;
 		};
+		C95BBFE2207E11A600F30B49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C95BBFE3207E11A600F30B49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -668,6 +823,15 @@
 			buildConfigurations = (
 				353C0FEB1DDF393F00A46EBD /* Debug */,
 				353C0FEC1DDF393F00A46EBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C95BBFE4207E11A600F30B49 /* Build configuration list for PBXNativeTarget "kcp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C95BBFE2207E11A600F30B49 /* Debug */,
+				C95BBFE3207E11A600F30B49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
