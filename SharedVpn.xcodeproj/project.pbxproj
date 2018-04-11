@@ -30,6 +30,9 @@
 		353C0FE11DDF393F00A46EBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 353C0FDF1DDF393F00A46EBD /* Main.storyboard */; };
 		353C0FE31DDF393F00A46EBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353C0FE21DDF393F00A46EBD /* Assets.xcassets */; };
 		353C0FE61DDF393F00A46EBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 353C0FE41DDF393F00A46EBD /* LaunchScreen.storyboard */; };
+		C98B25E9207E07EE0065FE64 /* KcpShadowsocksProxyServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B25E7207E07ED0065FE64 /* KcpShadowsocksProxyServer.swift */; };
+		C98B25EA207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B25E8207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift */; };
+		C98B25EC207E07F30065FE64 /* KcpSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B25EB207E07F20065FE64 /* KcpSocket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +76,7 @@
 		09549AC31DDF3B4A000F198C /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		09549AC51DDF3B4A000F198C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09549ACE1DDF3C0E000F198C /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
-		09549AD11DDF3C30000F198C /* rabbit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = rabbit.entitlements; sourceTree = "<group>"; };
+		09549AD11DDF3C30000F198C /* SharedVpn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SharedVpn.entitlements; sourceTree = "<group>"; };
 		09549AD21DDF406B000F198C /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		09549AD31DDF406B000F198C /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = "<group>"; };
 		09549AD41DDF406B000F198C /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
@@ -87,13 +90,16 @@
 		0970F9361DE0039F003391DF /* UIView+CornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+CornerRadius.swift"; path = "Extends/UIView+CornerRadius.swift"; sourceTree = "<group>"; };
 		09A5AD2C1DE0573A00272F7C /* NEKitRule.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = NEKitRule.conf; path = "Supporting Files/NEKitRule.conf"; sourceTree = "<group>"; };
 		09E3FB5A1DF859E0001DE158 /* Resolver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Resolver.framework; path = Carthage/Build/iOS/Resolver.framework; sourceTree = "<group>"; };
-		353C0FD81DDF393F00A46EBD /* rabbit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rabbit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		353C0FD81DDF393F00A46EBD /* SharedVpn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SharedVpn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		353C0FDB1DDF393F00A46EBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		353C0FDD1DDF393F00A46EBD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		353C0FE01DDF393F00A46EBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		353C0FE21DDF393F00A46EBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		353C0FE51DDF393F00A46EBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		353C0FE71DDF393F00A46EBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C98B25E7207E07ED0065FE64 /* KcpShadowsocksProxyServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpShadowsocksProxyServer.swift; sourceTree = "<group>"; };
+		C98B25E8207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpShadowsocksAdapterFactory.swift; sourceTree = "<group>"; };
+		C98B25EB207E07F20065FE64 /* KcpSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpSocket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +160,7 @@
 		0921EE311DDFF5EA006955C6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				09549AD11DDF3C30000F198C /* rabbit.entitlements */,
+				09549AD11DDF3C30000F198C /* SharedVpn.entitlements */,
 				353C0FE21DDF393F00A46EBD /* Assets.xcassets */,
 				353C0FE71DDF393F00A46EBD /* Info.plist */,
 				09A5AD2C1DE0573A00272F7C /* NEKitRule.conf */,
@@ -173,6 +179,9 @@
 		09549AC01DDF3B4A000F198C /* PacketTunnel */ = {
 			isa = PBXGroup;
 			children = (
+				C98B25EB207E07F20065FE64 /* KcpSocket.swift */,
+				C98B25E8207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift */,
+				C98B25E7207E07ED0065FE64 /* KcpShadowsocksProxyServer.swift */,
 				09549AC31DDF3B4A000F198C /* PacketTunnelProvider.swift */,
 				09549AC11DDF3B4A000F198C /* Supporting Files */,
 			);
@@ -218,7 +227,7 @@
 		353C0FCF1DDF393F00A46EBD = {
 			isa = PBXGroup;
 			children = (
-				353C0FDA1DDF393F00A46EBD /* rabbit */,
+				353C0FDA1DDF393F00A46EBD /* SharedVpn */,
 				09549AC01DDF3B4A000F198C /* PacketTunnel */,
 				353C0FD91DDF393F00A46EBD /* Products */,
 				09549ACD1DDF3C0E000F198C /* Frameworks */,
@@ -228,13 +237,13 @@
 		353C0FD91DDF393F00A46EBD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				353C0FD81DDF393F00A46EBD /* rabbit.app */,
+				353C0FD81DDF393F00A46EBD /* SharedVpn.app */,
 				09549ABF1DDF3B49000F198C /* PacketTunnel.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		353C0FDA1DDF393F00A46EBD /* rabbit */ = {
+		353C0FDA1DDF393F00A46EBD /* SharedVpn */ = {
 			isa = PBXGroup;
 			children = (
 				353C0FDB1DDF393F00A46EBD /* AppDelegate.swift */,
@@ -245,7 +254,7 @@
 				0921EE321DDFF8D1006955C6 /* Macros */,
 				0921EE311DDFF5EA006955C6 /* Supporting Files */,
 			);
-			path = rabbit;
+			path = SharedVpn;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,9 +279,9 @@
 			productReference = 09549ABF1DDF3B49000F198C /* PacketTunnel.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		353C0FD71DDF393F00A46EBD /* rabbit */ = {
+		353C0FD71DDF393F00A46EBD /* SharedVpn */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 353C0FEA1DDF393F00A46EBD /* Build configuration list for PBXNativeTarget "rabbit" */;
+			buildConfigurationList = 353C0FEA1DDF393F00A46EBD /* Build configuration list for PBXNativeTarget "SharedVpn" */;
 			buildPhases = (
 				353C0FD41DDF393F00A46EBD /* Sources */,
 				353C0FD51DDF393F00A46EBD /* Frameworks */,
@@ -285,9 +294,9 @@
 			dependencies = (
 				09549AC71DDF3B4A000F198C /* PBXTargetDependency */,
 			);
-			name = rabbit;
-			productName = rabbit;
-			productReference = 353C0FD81DDF393F00A46EBD /* rabbit.app */;
+			name = SharedVpn;
+			productName = SharedVpn;
+			productReference = 353C0FD81DDF393F00A46EBD /* SharedVpn.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -324,7 +333,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 353C0FD31DDF393F00A46EBD /* Build configuration list for PBXProject "rabbit" */;
+			buildConfigurationList = 353C0FD31DDF393F00A46EBD /* Build configuration list for PBXProject "SharedVpn" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -337,7 +346,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				353C0FD71DDF393F00A46EBD /* rabbit */,
+				353C0FD71DDF393F00A46EBD /* SharedVpn */,
 				09549ABE1DDF3B49000F198C /* PacketTunnel */,
 			);
 		};
@@ -399,7 +408,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ! -e $PROJECT_DIR/Frameworks/$PLATFORM_NAME ] ; then\necho Generating $PROJECT_DIR/Frameworks/$(PLATFORM_NAME)/CommonCrypto.framework\nxcrun -sdk macosx swift ./rabbit/GenerateCommonCryptoModule.swift $PLATFORM_NAME $PROJECT_DIR\nelse\necho Directory exists, skipping generation of $PROJECT_DIR/Frameworks/$(PLATFORM_NAME)/CommonCrypto.framework\nfi";
+			shellScript = "if [ ! -e $PROJECT_DIR/Frameworks/$PLATFORM_NAME ] ; then\necho Generating $PROJECT_DIR/Frameworks/$(PLATFORM_NAME)/CommonCrypto.framework\nxcrun -sdk macosx swift ./SharedVpn/GenerateCommonCryptoModule.swift $PLATFORM_NAME $PROJECT_DIR\nelse\necho Directory exists, skipping generation of $PROJECT_DIR/Frameworks/$(PLATFORM_NAME)/CommonCrypto.framework\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -408,6 +417,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C98B25EA207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift in Sources */,
+				C98B25EC207E07F30065FE64 /* KcpSocket.swift in Sources */,
+				C98B25E9207E07EE0065FE64 /* KcpShadowsocksProxyServer.swift in Sources */,
 				09549AC41DDF3B4A000F198C /* PacketTunnelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,7 +484,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adups.shadowshare.tunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "21894669-825c-47c9-bcf7-af4ca1fd5598";
 				PROVISIONING_PROFILE_SPECIFIER = ShadowShareTunnel_dev;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -498,7 +509,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adups.shadowshare.tunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "566b5e0a-239e-4f0f-bdce-384971563eb0";
 				PROVISIONING_PROFILE_SPECIFIER = ShadowShareTunnel_dis;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -601,11 +611,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = rabbit/rabbit.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SharedVpn/SharedVpn.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = F9V4S22NA7;
-				INFOPLIST_FILE = rabbit/Info.plist;
+				INFOPLIST_FILE = SharedVpn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adups.shadowshare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -619,11 +629,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = rabbit/rabbit.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SharedVpn/SharedVpn.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = F9V4S22NA7;
-				INFOPLIST_FILE = rabbit/Info.plist;
+				INFOPLIST_FILE = SharedVpn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adups.shadowshare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -644,7 +654,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		353C0FD31DDF393F00A46EBD /* Build configuration list for PBXProject "rabbit" */ = {
+		353C0FD31DDF393F00A46EBD /* Build configuration list for PBXProject "SharedVpn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				353C0FE81DDF393F00A46EBD /* Debug */,
@@ -653,7 +663,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		353C0FEA1DDF393F00A46EBD /* Build configuration list for PBXNativeTarget "rabbit" */ = {
+		353C0FEA1DDF393F00A46EBD /* Build configuration list for PBXNativeTarget "SharedVpn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				353C0FEB1DDF393F00A46EBD /* Debug */,

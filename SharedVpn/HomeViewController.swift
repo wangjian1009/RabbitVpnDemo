@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  rabbit
+//  SharedVpn
 //
 //  Created by yicheng on 16/11/18.
 //  Copyright © 2016年 yicheng. All rights reserved.

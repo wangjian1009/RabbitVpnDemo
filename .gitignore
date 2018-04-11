@@ -1,6 +1,6 @@
 *.bcsymbolmap
 Carthage/Build/iOS/*.dSYM
-rabbit.xcodeproj/xcuserdata
+SharedVpn.xcodeproj/xcuserdata
 Carthage/Checkouts
-rabbit.xcodeproj/project.xcworkspace/xcuserdata
+SharedVpn.xcodeproj/project.xcworkspace/xcuserdata
 Carthage
