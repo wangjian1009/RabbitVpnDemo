@@ -3,14 +3,14 @@ import NEKit
 import CocoaLumberjackSwift
 
 public class KcpSocket: NSObject, RawTCPSocketProtocol {
-    private weak var kcp_remote: KcpRemote?
+    private weak var remote: KcpRemote?
     private var kcp: UnsafeMutablePointer<ikcpcb>?
     
     weak open var delegate: RawTCPSocketDelegate?
 
     private static var conv = 1
     init(_ remote: KcpRemote) {
-        self.kcp_remote = remote;
+        self.remote = remote;
         kcp = nil;
         super.init()
 
@@ -18,18 +18,29 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
         let pointer = UnsafeMutableRawPointer(holder.toOpaque())
         kcp = ikcp_create(UInt32(KcpSocket.conv), pointer)
         KcpSocket.conv+=1
+
+        self.remote?.addSocket(socket: self)
+        
         DDLogError("kcp[\(ikcp_getconv(kcp))]: create")
     }
 
     deinit {
         DDLogError("kcp[\(ikcp_getconv(kcp))]: release")
+
+        remote?.removeSocket(socket: self)
         ikcp_release(kcp)
         kcp = nil;
     }
 
+    public var conv: UInt32 {
+        get {
+            return kcp?.pointee.conv ?? 0
+        }
+    }
+    
     /// If the socket is connected.
     open var isConnected: Bool {
-        return true
+        return remote != nil
     }
 
     public var sourceIPAddress: IPAddress? { return nil }
