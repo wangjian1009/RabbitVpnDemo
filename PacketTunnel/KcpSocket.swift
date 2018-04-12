@@ -4,6 +4,11 @@ import CocoaLumberjackSwift
 
 public class KcpSocket: NSObject, RawTCPSocketProtocol {
     private weak var remote: KcpRemote?
+
+    open var remotePort: NEKit.Port = 0
+    open var remoteAddress: IPAddress? = nil
+    open private(set) var remoteAddr: Data? = nil
+
     private(set) var kcp: UnsafeMutablePointer<ikcpcb>?
     public var lastSendMs: UInt32
 
@@ -11,16 +16,17 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
 
     private static var conv = 1
     init(_ remote: KcpRemote) {
-        self.remote = remote;
-        self.kcp = nil;
-        self.lastSendMs = UInt32(DispatchTime.now().uptimeNanoseconds * 1000);
+        self.remote = remote
+
+        self.kcp = nil
+        self.lastSendMs = UInt32(DispatchTime.now().uptimeNanoseconds * 1000)
         super.init()
 
         let holder = Unmanaged.passRetained(self)
         let pointer = UnsafeMutableRawPointer(holder.toOpaque())
         self.kcp = ikcp_create(UInt32(KcpSocket.conv), pointer)
 
-        KcpSocket.conv+=1
+        KcpSocket.conv += 1
 
         self.remote?.addSocket(socket: self)
         
@@ -43,25 +49,36 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
 
     /// If the socket is connected.
     open var isConnected: Bool {
-        return remote != nil
+        return remote != nil && remoteAddr != nil
     }
 
     public var sourceIPAddress: IPAddress? { return nil }
     public var sourcePort: NEKit.Port? { return nil }
 
-    public var destinationIPAddress: IPAddress? { return nil }
-    public var destinationPort: NEKit.Port? { return nil }
+    public var destinationIPAddress: IPAddress? { return remoteAddress }
+    public var destinationPort: NEKit.Port? { return remotePort }
 
     public func connectTo(host: String, port: Int, enableTLS: Bool, tlsSettings: [AnyHashable: Any]?) throws {
+        remoteAddress = IPAddress(fromString: host)
+        remotePort = NEKit.Port(port: UInt16(port))
+
+        // var data: NSData
+        // var address: sockaddr ...
+
+        // data.getBytes(&address, length: MemoryLayout<sockaddr>.size)
     }
 
     public func disconnect() {
+        remoteAddr = nil
     }
 
     public func forceDisconnect() {
+        remoteAddr = nil
     }
 
     public func write(data: Data) {
+        guard isConnected else { return }
+
         let rv = data.withUnsafeBytes { (d: UnsafePointer<CChar>) -> CInt in
             return ikcp_send(kcp, d, Int32(data.count))
         }
