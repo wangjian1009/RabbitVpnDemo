@@ -7,5 +7,13 @@ class KcpShadowsocksProxyServer: ProxyServer, GCDAsyncSocketDelegate {
 
     override public init(address: IPAddress?, port: NEKit.Port) {
         super.init(address: address, port: port)
+
+        kcp_socket = GCDAsyncSocket(delegate: self,
+                                    delegateQueue: NEKit.QueueFactory.getQueue(),
+                                    socketQueue: NEKit.QueueFactory.getQueue())
+    }
+
+    deinit {
+        
     }
 }
