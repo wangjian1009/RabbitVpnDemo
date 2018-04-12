@@ -2,18 +2,11 @@ import Foundation
 import NEKit
 import CocoaAsyncSocket
 
-class KcpShadowsocksProxyServer: ProxyServer, GCDAsyncSocketDelegate {
-    private var kcp_socket: GCDAsyncUdpSocket!
+class KcpShadowsocksProxyServer: ProxyServer {
+    private let kcp_remote: KcpRemote
 
-    override public init(address: IPAddress?, port: NEKit.Port) {
+    public init(kcp_remote: KcpRemote, address: IPAddress?, port: NEKit.Port) {
+        self.kcp_remote = kcp_remote
         super.init(address: address, port: port)
-
-        kcp_socket = GCDAsyncSocket(delegate: self,
-                                    delegateQueue: NEKit.QueueFactory.getQueue(),
-                                    socketQueue: NEKit.QueueFactory.getQueue())
-    }
-
-    deinit {
-        
     }
 }

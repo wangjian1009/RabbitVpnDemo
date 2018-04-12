@@ -3,12 +3,14 @@ import NEKit
 import CocoaLumberjackSwift
 
 public class KcpSocket: NSObject, RawTCPSocketProtocol {
-    var kcp: UnsafeMutablePointer<ikcpcb>?
+    private weak var kcp_remote: KcpRemote?
+    private var kcp: UnsafeMutablePointer<ikcpcb>?
     
     weak open var delegate: RawTCPSocketDelegate?
 
     private static var conv = 1
-    public override init() {
+    init(_ remote: KcpRemote) {
+        self.kcp_remote = remote;
         kcp = nil;
         super.init()
 
