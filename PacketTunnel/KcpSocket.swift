@@ -4,19 +4,22 @@ import CocoaLumberjackSwift
 
 public class KcpSocket: NSObject, RawTCPSocketProtocol {
     private weak var remote: KcpRemote?
-    private var kcp: UnsafeMutablePointer<ikcpcb>?
-    
+    private(set) var kcp: UnsafeMutablePointer<ikcpcb>?
+    public var lastSendMs: UInt32
+
     weak open var delegate: RawTCPSocketDelegate?
 
     private static var conv = 1
     init(_ remote: KcpRemote) {
         self.remote = remote;
-        kcp = nil;
+        self.kcp = nil;
+        self.lastSendMs = UInt32(DispatchTime.now().uptimeNanoseconds * 1000);
         super.init()
 
         let holder = Unmanaged.passRetained(self)
         let pointer = UnsafeMutableRawPointer(holder.toOpaque())
-        kcp = ikcp_create(UInt32(KcpSocket.conv), pointer)
+        self.kcp = ikcp_create(UInt32(KcpSocket.conv), pointer)
+
         KcpSocket.conv+=1
 
         self.remote?.addSocket(socket: self)
@@ -37,7 +40,7 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
             return kcp?.pointee.conv ?? 0
         }
     }
-    
+
     /// If the socket is connected.
     open var isConnected: Bool {
         return remote != nil
