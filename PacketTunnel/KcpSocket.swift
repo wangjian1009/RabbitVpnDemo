@@ -3,11 +3,8 @@ import NEKit
 import CocoaLumberjackSwift
 
 public class KcpSocket: NSObject, RawTCPSocketProtocol {
+    private weak var schedule: KcpSchedule?
     private weak var remote: KcpRemote?
-
-    open var remotePort: NEKit.Port = 0
-    open var remoteAddress: IPAddress? = nil
-    open private(set) var remoteAddr: Data? = nil
 
     private(set) var kcp: UnsafeMutablePointer<ikcpcb>?
     public var lastSendMs: UInt32
@@ -15,21 +12,17 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
     weak open var delegate: RawTCPSocketDelegate?
 
     private static var conv = 1
-    init(_ remote: KcpRemote) {
-        self.remote = remote
-
+    init(schedule: KcpSchedule, conv: UInt32) {
+        self.schedule = schedule
+        self.remote = nil
         self.kcp = nil
         self.lastSendMs = UInt32(DispatchTime.now().uptimeNanoseconds * 1000)
         super.init()
 
         let holder = Unmanaged.passRetained(self)
         let pointer = UnsafeMutableRawPointer(holder.toOpaque())
-        self.kcp = ikcp_create(UInt32(KcpSocket.conv), pointer)
+        self.kcp = ikcp_create(conv, pointer)
 
-        KcpSocket.conv += 1
-
-        self.remote?.addSocket(socket: self)
-        
         DDLogError("kcp[\(ikcp_getconv(kcp))]: create")
     }
 
@@ -49,31 +42,32 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
 
     /// If the socket is connected.
     open var isConnected: Bool {
-        return remote != nil && remoteAddr != nil
+        return remote != nil
     }
 
     public var sourceIPAddress: IPAddress? { return nil }
     public var sourcePort: NEKit.Port? { return nil }
 
-    public var destinationIPAddress: IPAddress? { return remoteAddress }
-    public var destinationPort: NEKit.Port? { return remotePort }
+    public var destinationIPAddress: IPAddress? { return remote?.address }
+    public var destinationPort: NEKit.Port? { return remote?.port }
 
     public func connectTo(host: String, port: Int, enableTLS: Bool, tlsSettings: [AnyHashable: Any]?) throws {
-        remoteAddress = IPAddress(fromString: host)
-        remotePort = NEKit.Port(port: UInt16(port))
 
-        // var data: NSData
-        // var address: sockaddr ...
+        remote?.removeSocket(socket: self)
 
-        // data.getBytes(&address, length: MemoryLayout<sockaddr>.size)
+        let hostAddr = IPAddress(fromString: host)
+        remote = schedule?.findRemote(remoteAddr: hostAddr!, remotePort: UInt16(port))
+        remote?.addSocket(socket: self)
     }
 
     public func disconnect() {
-        remoteAddr = nil
+        remote?.removeSocket(socket: self)
+        remote = nil
     }
 
     public func forceDisconnect() {
-        remoteAddr = nil
+        remote?.removeSocket(socket: self)
+        remote = nil
     }
 
     public func write(data: Data) {

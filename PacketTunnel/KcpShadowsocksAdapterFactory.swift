@@ -2,18 +2,18 @@ import Foundation
 import NEKit
 
 class KcpShadowsocksAdapterFactory : AdapterFactory {
-    let kcp_remote: KcpRemote
+    let kcpSchedule: KcpSchedule
     let protocolObfuscaterFactory: ShadowsocksAdapter.ProtocolObfuscater.Factory
     let cryptorFactory: ShadowsocksAdapter.CryptoStreamProcessor.Factory
     let streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.Factory
 
     public init(
-        kcp_remote: KcpRemote,
+        kcpSchedule: KcpSchedule,
         protocolObfuscaterFactory: ShadowsocksAdapter.ProtocolObfuscater.Factory,
         cryptorFactory: ShadowsocksAdapter.CryptoStreamProcessor.Factory,
         streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.Factory)
     {
-        self.kcp_remote = kcp_remote;
+        self.kcpSchedule = kcpSchedule;
         self.protocolObfuscaterFactory = protocolObfuscaterFactory
         self.cryptorFactory = cryptorFactory
         self.streamObfuscaterFactory = streamObfuscaterFactory
@@ -25,7 +25,7 @@ class KcpShadowsocksAdapterFactory : AdapterFactory {
             protocolObfuscater: protocolObfuscaterFactory.build(),
             cryptor: cryptorFactory.build(),
             streamObfuscator: streamObfuscaterFactory.build(for: session))
-        adapter.socket = KcpSocket(kcp_remote)
+        adapter.socket = kcpSchedule.createSocket()
         return adapter
     }
 }

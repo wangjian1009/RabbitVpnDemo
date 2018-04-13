@@ -56,11 +56,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             fatalError("Undefined algorithm!")
         }
         
-        let kcp_remote = KcpRemote()
+        let kcpSchedule = KcpSchedule(address: IPAddress(ipv4InNetworkOrder: 0), port: 0)
+        _ = kcpSchedule.addRemote(remoteAddr: (IPAddress(fromString: "192.168.0.1"))!, remotePort: UInt16(0))
         
         let ssAdapterFactory =
         KcpShadowsocksAdapterFactory(
-            kcp_remote: kcp_remote,
+            kcpSchedule: kcpSchedule,
             protocolObfuscaterFactory:obfuscater,
             cryptorFactory: ShadowsocksAdapter.CryptoStreamProcessor.Factory(password: password, algorithm: algorithm),
             streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.OriginStreamObfuscater.Factory())
@@ -168,7 +169,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             DNSSettings.matchDomainsNoSearch = false
             networkSettings.dnsSettings = DNSSettings
         }
-        
+
         setTunnelNetworkSettings(networkSettings) {
             error in
             guard error == nil else {
@@ -179,8 +180,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             
 
             if !self.started{
-                let kcp_remote = KcpRemote()
-                self.proxyServer = KcpShadowsocksProxyServer(kcp_remote : kcp_remote, address: IPAddress(fromString: "127.0.0.1"), port: NEKit.Port(port: UInt16(self.proxyPort)))
+                self.proxyServer = KcpShadowsocksProxyServer(kcpSchedule)
                 try! self.proxyServer.start()
                 self.addObserver(self, forKeyPath: "defaultPath", options: .initial, context: nil)
             }else{

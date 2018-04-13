@@ -36,6 +36,8 @@
 		C98B25EA207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B25E8207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift */; };
 		C98B25EC207E07F30065FE64 /* KcpSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B25EB207E07F20065FE64 /* KcpSocket.swift */; };
 		C9DC568E207F5EE7003C61CD /* KcpRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC568D207F5EE7003C61CD /* KcpRemote.swift */; };
+		C9DC5690208044BF003C61CD /* KcpSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC568F208044BE003C61CD /* KcpSchedule.swift */; };
+		C9DC569220804947003C61CD /* KcpUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DC569120804947003C61CD /* KcpUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +126,8 @@
 		C98B25E8207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpShadowsocksAdapterFactory.swift; sourceTree = "<group>"; };
 		C98B25EB207E07F20065FE64 /* KcpSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpSocket.swift; sourceTree = "<group>"; };
 		C9DC568D207F5EE7003C61CD /* KcpRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpRemote.swift; sourceTree = "<group>"; };
+		C9DC568F208044BE003C61CD /* KcpSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpSchedule.swift; sourceTree = "<group>"; };
+		C9DC569120804947003C61CD /* KcpUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KcpUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +215,8 @@
 		09549AC01DDF3B4A000F198C /* PacketTunnel */ = {
 			isa = PBXGroup;
 			children = (
+				C9DC569120804947003C61CD /* KcpUtils.swift */,
+				C9DC568F208044BE003C61CD /* KcpSchedule.swift */,
 				C9DC568D207F5EE7003C61CD /* KcpRemote.swift */,
 				C98B25EB207E07F20065FE64 /* KcpSocket.swift */,
 				C98B25E8207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift */,
@@ -486,10 +492,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C98B25EA207E07EE0065FE64 /* KcpShadowsocksAdapterFactory.swift in Sources */,
+				C9DC5690208044BF003C61CD /* KcpSchedule.swift in Sources */,
 				C98B25EC207E07F30065FE64 /* KcpSocket.swift in Sources */,
 				C9DC568E207F5EE7003C61CD /* KcpRemote.swift in Sources */,
 				C98B25E9207E07EE0065FE64 /* KcpShadowsocksProxyServer.swift in Sources */,
 				09549AC41DDF3B4A000F198C /* PacketTunnelProvider.swift in Sources */,
+				C9DC569220804947003C61CD /* KcpUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,10 +3,10 @@ import NEKit
 import CocoaAsyncSocket
 
 class KcpShadowsocksProxyServer: ProxyServer {
-    private let kcp_remote: KcpRemote
+    private let kcpSchedule: KcpSchedule
 
-    public init(kcp_remote: KcpRemote, address: IPAddress?, port: NEKit.Port) {
-        self.kcp_remote = kcp_remote
-        super.init(address: address, port: port)
+    public init(_ kcpSchedule: KcpSchedule) {
+        self.kcpSchedule = kcpSchedule
+        super.init(address: nil, port: 0)
     }
 }
