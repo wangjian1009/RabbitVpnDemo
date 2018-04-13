@@ -57,12 +57,20 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
         
         let kcpSchedule = KcpSchedule(address: IPAddress(ipv4InNetworkOrder: 0), port: 0)
-        _ = kcpSchedule.addRemote(remoteAddr: (IPAddress(fromString: "192.168.0.1"))!, remotePort: UInt16(0))
+        let remoteAddr = IPAddress(fromString: ss_adder);
+        guard remoteAddr != nil else {
+            DDLogError("\(ss_adder) format error")
+            fatalError("\(ss_adder) format error!")
+        }
+        
+        _ = kcpSchedule.addRemote(remoteAddr: remoteAddr!, remotePort: UInt16(ss_port))
         
         let ssAdapterFactory =
         KcpShadowsocksAdapterFactory(
             kcpSchedule: kcpSchedule,
-            protocolObfuscaterFactory:obfuscater,
+            remoteAddr: remoteAddr!,
+            remotePort: UInt16(ss_port),
+            protocolObfuscaterFactory: obfuscater,
             cryptorFactory: ShadowsocksAdapter.CryptoStreamProcessor.Factory(password: password, algorithm: algorithm),
             streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.OriginStreamObfuscater.Factory())
         
