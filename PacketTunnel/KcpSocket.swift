@@ -45,8 +45,8 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
         return remote != nil
     }
 
-    public var sourceIPAddress: IPAddress? { return nil }
-    public var sourcePort: NEKit.Port? { return nil }
+    public var sourceIPAddress: IPAddress? { return schedule?.address }
+    public var sourcePort: NEKit.Port? { return schedule?.port }
 
     public var destinationIPAddress: IPAddress? { return remote?.address }
     public var destinationPort: NEKit.Port? { return remote?.port }
@@ -58,38 +58,51 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
         let hostAddr = IPAddress(fromString: host)
         remote = schedule?.findRemote(remoteAddr: hostAddr!, remotePort: UInt16(port))
         remote?.addSocket(socket: self)
+
+        DDLogError("\(self): connectTo: \(isConnected)")
     }
 
     public func disconnect() {
+        DDLogError("\(self): disconnect)")
+        
         remote?.removeSocket(socket: self)
         remote = nil
     }
 
     public func forceDisconnect() {
+        DDLogError("\(self): forceDisconnect)")
+        
         remote?.removeSocket(socket: self)
         remote = nil
     }
 
     public func write(data: Data) {
-        guard isConnected else { return }
+        guard isConnected else {
+            DDLogError("\(self): write: not connected")
+            return
+        }
 
         let rv = data.withUnsafeBytes { (d: UnsafePointer<CChar>) -> CInt in
             return ikcp_send(kcp, d, Int32(data.count))
         }
         
-        DDLogError("kcp ==> write\(data.count), rv=\(rv)")        
+        DDLogError("\(self): write\(data.count), rv=\(rv)")        
     }
 
     public func readData() {
+        DDLogError("\(self): readData")        
     }
 
     public func readDataTo(length: Int) {
+        DDLogError("\(self): readDataTo")        
     }
 
     public func readDataTo(data: Data) {
+        DDLogError("\(self): readDataTo2")
     }
 
     public func readDataTo(data: Data, maxLength: Int) {
+        DDLogError("\(self): readDataTo3")
     }
 }
 
