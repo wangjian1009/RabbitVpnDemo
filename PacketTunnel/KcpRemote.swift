@@ -17,7 +17,7 @@ class KcpRemote: NSObject {
         self.schedule = schedule
         self.address = addr
         self.port = NEKit.Port(port: UInt16(port))
-        self.lastSendMs = UInt32(DispatchTime.now().uptimeNanoseconds * 1000);
+        self.lastSendMs = UInt32(DispatchTime.now().uptimeNanoseconds / 1000000);
         self.sockAddr = Data()
         super.init();
 

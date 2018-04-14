@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 import NEKit
 
 class KcpShadowsocksAdapterFactory : AdapterFactory {
@@ -26,6 +27,8 @@ class KcpShadowsocksAdapterFactory : AdapterFactory {
     }
 
     override open func getAdapterFor(session: ConnectSession) -> AdapterSocket {
+        DDLogError("xxxx: getAdapterFor: \(session)"); DDLog.flushLog()
+        
         let adapter = ShadowsocksAdapter(
             host: remoteAddr.description, port: Int(remotePort),
             protocolObfuscater: protocolObfuscaterFactory.build(),

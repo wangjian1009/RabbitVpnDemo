@@ -25,19 +25,18 @@ class KcpSchedule: NSObject, GCDAsyncUdpSocketDelegate {
         super.init();
 
         socket.setDelegate(self);
-
-        scheduleKcpUpdate(delayMs: kcpUpdateSpanMS)
     }
 
-    func scheduleKcpUpdate(delayMs: Int) {
+    public func scheduleKcpUpdate(delayMs: Int) {
         QueueFactory.getQueue().asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.microseconds(delayMs)) {
             [weak self] in
 
             guard self != nil else {
+                DDLogError("KcpSchedule tick stop");
                 return;
             }
 
-            let curTimeMs = UInt32(DispatchTime.now().uptimeNanoseconds * 1000)
+            let curTimeMs = UInt32(DispatchTime.now().uptimeNanoseconds / 1000000)
             for remote in (self?.remotes)! {
                 remote.kcpUpdate(curTimeMs: curTimeMs)
             }

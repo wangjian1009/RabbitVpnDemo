@@ -18,54 +18,45 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 	override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         DDLog.removeAllLoggers()
         DDLog.add(DDASLLogger.sharedInstance, with: DDLogLevel.info)
-        DDLogError("-------------")
         
         guard let conf = (protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration else{
             DDLogError("[ERROR] No ProtocolConfiguration Found")
             exit(EXIT_FAILURE)
         }
         
-        DDLogError("xxxxxxxxxxxxxx")
-        
         let ss_adder = conf["ss_address"] as! String
         let ss_port = conf["ss_port"] as! Int
         let method = conf["ss_method"] as! String
         let password = conf["ss_password"] as!String
-        DDLogInfo("address=\(ss_adder), port=\(ss_port), method=\(method), password=\(password)")
+        DDLogInfo("address=\(ss_adder), port=\(ss_port), method=\(method), password=\(password)"); DDLog.flushLog()
                 
-        // Proxy Adapter
-        
-        
-        // SSR Httpsimple
-//        let obfuscater = ShadowsocksAdapter.ProtocolObfuscater.HTTPProtocolObfuscater.Factory(hosts:["intl.aliyun.com","cdn.aliyun.com"], customHeader:nil)
-        
-        
-        // Origin
         let obfuscater = ShadowsocksAdapter.ProtocolObfuscater.OriginProtocolObfuscater.Factory()
         
+        let algorithm: CryptoAlgorithm
         
-        let algorithm:CryptoAlgorithm
-        
-        switch method{
-        case "AES128CFB":algorithm = .AES128CFB
-        case "AES192CFB":algorithm = .AES192CFB
-        case "AES256CFB":algorithm = .AES256CFB
-        case "CHACHA20":algorithm = .CHACHA20
-        case "SALSA20":algorithm = .SALSA20
-        case "RC4MD5":algorithm = .RC4MD5 
+        switch method {
+        case "AES128CFB": algorithm = .AES128CFB
+        case "AES192CFB": algorithm = .AES192CFB
+        case "AES256CFB": algorithm = .AES256CFB
+        case "CHACHA20": algorithm = .CHACHA20
+        case "SALSA20": algorithm = .SALSA20
+        case "RC4MD5": algorithm = .RC4MD5 
         default:
             fatalError("Undefined algorithm!")
         }
         
         let kcpSchedule = KcpSchedule(address: IPAddress(ipv4InNetworkOrder: 0), port: 0)
+
         let remoteAddr = IPAddress(fromString: ss_adder);
         guard remoteAddr != nil else {
-            DDLogError("\(ss_adder) format error")
+            DDLogError("\(ss_adder) format error"); DDLog.flushLog()
             fatalError("\(ss_adder) format error!")
         }
         
         _ = kcpSchedule.addRemote(remoteAddr: remoteAddr!, remotePort: UInt16(ss_port))
-        
+
+        DDLog.flushLog()
+
         let ssAdapterFactory =
         KcpShadowsocksAdapterFactory(
             kcpSchedule: kcpSchedule,
@@ -74,7 +65,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             protocolObfuscaterFactory: obfuscater,
             cryptorFactory: ShadowsocksAdapter.CryptoStreamProcessor.Factory(password: password, algorithm: algorithm),
             streamObfuscaterFactory: ShadowsocksAdapter.StreamObfuscater.OriginStreamObfuscater.Factory())
-        
+
+        DDLogError("xxxx: KcpShadowsocksAdapterFactory"); DDLog.flushLog()
+
         let directAdapterFactory = DirectAdapterFactory()
         
         //Get lists from conf
@@ -115,7 +108,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 }
                 UserRules.append(DomainListRule(adapterFactory: adapter, criteria: rule_array))
                 
-                
             case "iplist":
                 let ipArray = each["criteria"].array!.map{$0.string!}
                 UserRules.append(try! IPRangeListRule(adapterFactory: adapter, ranges: ipArray))
@@ -124,9 +116,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             }
         }
 
-        
         // Rules
-        
         let chinaRule = CountryRule(countryCode: "CN", match: true, adapterFactory: directAdapterFactory)
         let unKnowLoc = CountryRule(countryCode: "--", match: true, adapterFactory: directAdapterFactory)
         let dnsFailRule = DNSFailRule(adapterFactory: ssAdapterFactory)
@@ -169,7 +159,16 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         proxySettings.excludeSimpleHostnames = true
         // This will match all domains
         proxySettings.matchDomains = [""]
-        proxySettings.exceptionList = ["api.smoot.apple.com","configuration.apple.com","xp.apple.com","smp-device-content.apple.com","guzzoni.apple.com","captive.apple.com","*.ess.apple.com","*.push.apple.com","*.push-apple.com.akadns.net"]
+        proxySettings.exceptionList = [
+            "api.smoot.apple.com",
+            "configuration.apple.com",
+            "xp.apple.com",
+            "smp-device-content.apple.com",
+            "guzzoni.apple.com",
+            "captive.apple.com",
+            "*.ess.apple.com",
+            "*.push.apple.com",
+            "*.push-apple.com.akadns.net"]
         networkSettings.proxySettings = proxySettings
         
         if enablePacketProcessing {
@@ -178,6 +177,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             DNSSettings.matchDomainsNoSearch = false
             networkSettings.dnsSettings = DNSSettings
         }
+
+        DDLogError("xxxx: setTunnelNetworkSettings"); DDLog.flushLog()
 
         setTunnelNetworkSettings(networkSettings) {
             error in
@@ -198,7 +199,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             }
             
             completionHandler(nil)
-            
             
             if self.enablePacketProcessing {
                 if self.started{
@@ -227,6 +227,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             }
             self.started = true
 
+            DDLogInfo("KcpSchedule start tick")
+            kcpSchedule.scheduleKcpUpdate(delayMs: 0)
         }
         
     }

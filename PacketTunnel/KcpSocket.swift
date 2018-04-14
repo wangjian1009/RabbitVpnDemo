@@ -15,7 +15,7 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
         self.schedule = schedule
         self.remote = nil
         self.kcp = nil
-        self.lastSendMs = UInt32(DispatchTime.now().uptimeNanoseconds * 1000)
+        self.lastSendMs = UInt32(DispatchTime.now().uptimeNanoseconds / 1000000)
         super.init()
 
         let holder = Unmanaged.passRetained(self)
