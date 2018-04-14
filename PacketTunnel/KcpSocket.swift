@@ -11,7 +11,6 @@ public class KcpSocket: NSObject, RawTCPSocketProtocol {
 
     weak open var delegate: RawTCPSocketDelegate?
 
-    private static var conv = 1
     init(schedule: KcpSchedule, conv: UInt32) {
         self.schedule = schedule
         self.remote = nil

@@ -25,6 +25,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             exit(EXIT_FAILURE)
         }
         
+        DDLogError("xxxxxxxxxxxxxx")
         
         let ss_adder = conf["ss_address"] as! String
         let ss_port = conf["ss_port"] as! Int
@@ -230,8 +231,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         
     }
     
-
 	override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
+        DDLogInfo("stopTunnel")
+        
         if enablePacketProcessing {
             interface.stop()
             interface = nil
